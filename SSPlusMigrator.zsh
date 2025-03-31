@@ -23,10 +23,10 @@ uninstall_self_service() {
 
     # Remove each path
     for path in $paths_to_remove; do
-        if -f $path || -L $path; then
-            rm $path && print "Removed file: $path" || print "Failed to remove file: $path"
-        elif -d $path; then
-            rm -r $path && print "Removed directory: $path" || print "Failed to remove directory: $path"
+        if [[ -f $path || -L $path ]]; then
+            /bin/rm $path && print "Removed file: $path" || print "Failed to remove file: $path"
+        elif [[ -d $path ]]; then
+            /bin/rm -r $path && print "Removed directory: $path" || print "Failed to remove directory: $path"
         else
             print "Path does not exist: $path"
         fi
@@ -35,8 +35,9 @@ uninstall_self_service() {
 
 install_self_service_plus() {
     # Trigger Jamf Pro policy to install Self Service+
+    # Edit this to the name of your custom trigger for the policy 
     /usr/local/bin/jamf policy -event installSelfServicePlus
-    if $? -eq 0; then
+    if [ $? -eq 0 ]; then
         print "Triggered Jamf Pro policy to install Self Service+."
     else
         print "Failed to trigger Jamf Pro policy."
