@@ -131,6 +131,7 @@ is_swiftdialog_installed
 is_self_service_installed
 check_self_service_running
 uninstall_self_service
+install_self_service_plus
 
 # Final message
 print "Migration complete."
